@@ -310,6 +310,40 @@ gfwaddin.write = function(self, section, value)
 	NXFS.writefile(addipconf, value:gsub("\r\n", "\n"))
 end
 
+---------------------------------------------------
+--Rui added
+local ubconf = "/etc/v2ray/base-ublist.txt"
+
+s:tab("mylist",  translate("User-defined Unblock-youku-List"))
+ublist = s:taboption("mylist", TextValue, "ubconf")
+ublist.description = translate("<br />（!）Note: When the domain name is entered and will automatically merge with the online Unblock-youku-List. Please manually update the Unblock-youku-List list after applying.")
+ublist.rows = 13
+ublist.wrap = "off"
+ublist.cfgvalue = function(self, section)
+	return NXFS.readfile(ubconf) or ""
+end
+ublist.write = function(self, section, value)
+	NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
+end
+
+local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
+
+s:tab("ubaddip",  translate("Unblock-youku-List Add-in IP"))
+ubaddin = s:taboption("ubaddip", TextValue, "ubaddipconf")
+ubaddin.description = translate("<br />（!）Note: IP add-in to Unblock-youku-List. Such as Telegram Messenger")
+ubaddin.rows = 13
+ubaddin.wrap = "off"
+ubaddin.cfgvalue = function(self, section)
+	return NXFS.readfile(ubaddipconf) or ""
+end
+ubaddin.write = function(self, section, value)
+	NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
+end
+
+
+--Rui added end
+---------------------------------------------------
+
 s:tab("status",  translate("Status and Tools"))
 s:taboption("status", DummyValue,"opennewwindow" , 
 	translate("<input type=\"button\" class=\"cbi-button cbi-button-apply\" value=\"IP111.CN\" onclick=\"window.open('http://www.ip111.cn/')\" />"))
