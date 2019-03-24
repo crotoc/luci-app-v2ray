@@ -320,7 +320,7 @@ ubcronup = s:taboption("basic", Flag, "ubcron_mode", translate("Auto Update unbl
 cronup.default = 0
 cronup.rmempty = false
 
-ubupdatead = s:taboption("basic", Button, "updatead", translate("Manually force update unblock-youku-List"), translate("Note: It needs to download and convert the rules. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
+ubupdatead = s:taboption("basic", Button, "updatead", translate("Manually force update unblock-youku-List"), translate("Note: It will download unblock youku list and merge with user-defined list. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
 ubupdatead.inputtitle = translate("Manually force update unblock-youku-List")
 ubupdatead.inputstyle = "apply"
 ubupdatead.write = function()
@@ -332,14 +332,15 @@ local ubconf = "/etc/v2ray/base-ublist.txt"
 
 s:tab("mylist",  translate("User-defined Unblock-youku-List"))
 ublist = s:taboption("mylist", TextValue, "ubconf")
-ublist.description = translate("<br />（!）Note: When the domain name is entered and will automatically merge with the online Unblock-youku-List. Please manually update the Unblock-youku-List list after applying.")
+ublist.description = translate("<br />（!）Note: When the domain name is entered and v2ray will only use this list. If you want to merge it with online unblock youku list. Please manually update the Unblock-youku-List list after applying.")
 ublist.rows = 13
 ublist.wrap = "off"
 ublist.cfgvalue = function(self, section)
 	return NXFS.readfile(ubconf) or ""
 end
 ublist.write = function(self, section, value)
-	NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
+   NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
+   SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
 end
 
 local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
