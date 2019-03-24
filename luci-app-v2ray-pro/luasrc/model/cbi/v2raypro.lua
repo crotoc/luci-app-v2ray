@@ -313,14 +313,14 @@ end
 ---------------------------------------------------
 --Rui added
 
-local UBND = SYS.exec("cat /etc/gfwlist/unblock-youku | wc -l")
+local UBND = SYS.exec("cat /etc/gfwlist/unblock-youku | sed -n '/./p' | wc -l")
 
 ubcronup = s:taboption("basic", Flag, "ubcron_mode", translate("Auto Update unblock-youku-List"),
 	translate(string.format("unblock-youku-List Lines： <strong><font color=\"blue\">%s</font></strong> Lines", UBND)))
 cronup.default = 0
 cronup.rmempty = false
 
-ubupdatead = s:taboption("basic", Button, "updatead", translate("Manually force update unblock-youku-List"), translate("Note: It will download unblock youku list and merge with user-defined list. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
+ubupdatead = s:taboption("basic", Button, "updatead", translate("Manually force update unblock-youku-List"), translate("Note: It will download a unblock youku list and merge with the user-defined list. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
 ubupdatead.inputtitle = translate("Manually force update unblock-youku-List")
 ubupdatead.inputstyle = "apply"
 ubupdatead.write = function()
@@ -332,7 +332,7 @@ local ubconf = "/etc/v2ray/base-ublist.txt"
 
 s:tab("mylist",  translate("User-defined Unblock-youku-List"))
 ublist = s:taboption("mylist", TextValue, "ubconf")
-ublist.description = translate("<br />（!）Note: When the domain name is entered and v2ray will only use this list. If you want to merge it with online unblock youku list. Please manually update the Unblock-youku-List list after applying.")
+ublist.description = translate("<br />（!）Note: The domain name or ip should be entered. Notice that v2ray will only use this list. If you want to merge it with the online unblock youku list. Please manually update the Unblock-youku-List list at  Base settomg tab after applying.")
 ublist.rows = 13
 ublist.wrap = "off"
 ublist.cfgvalue = function(self, section)
@@ -343,19 +343,19 @@ ublist.write = function(self, section, value)
    SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
 end
 
-local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
+-- local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
 
-s:tab("ubaddip",  translate("Unblock-youku-List Add-in IP"))
-ubaddin = s:taboption("ubaddip", TextValue, "ubaddipconf")
-ubaddin.description = translate("<br />（!）Note: IP add-in to Unblock-youku-List. Such as Telegram Messenger")
-ubaddin.rows = 13
-ubaddin.wrap = "off"
-ubaddin.cfgvalue = function(self, section)
-	return NXFS.readfile(ubaddipconf) or ""
-end
-ubaddin.write = function(self, section, value)
-	NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
-end
+-- s:tab("ubaddip",  translate("Unblock-youku-List Add-in IP"))
+-- ubaddin = s:taboption("ubaddip", TextValue, "ubaddipconf")
+-- ubaddin.description = translate("<br />（!）Note: IP add-in to Unblock-youku-List. Such as Telegram Messenger")
+-- ubaddin.rows = 13
+-- ubaddin.wrap = "off"
+-- ubaddin.cfgvalue = function(self, section)
+-- 	return NXFS.readfile(ubaddipconf) or ""
+-- end
+-- ubaddin.write = function(self, section, value)
+--    NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
+-- end
 
 
 --Rui added end
