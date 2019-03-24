@@ -33,7 +33,7 @@ proxy_mode:value("S", translate("Bypassing China Manland IP Mode(Be caution when
 proxy_mode:value("G", translate("Global Mode"))
 proxy_mode:value("V", translate("Overseas users watch China video website Mode"))
 
-cronup = s:taboption("basic", Flag, "cron_mode", translate("Auto Update GFW-List"),
+cronup = s:taboption("basic", Flag, "gfwcron_mode", translate("Auto Update GFW-List"),
 	translate(string.format("GFW-List Lines： <strong><font color=\"blue\">%s</font></strong> Lines", ND)))
 cronup.default = 0
 cronup.rmempty = false
@@ -312,6 +312,22 @@ end
 
 ---------------------------------------------------
 --Rui added
+
+local UBND = SYS.exec("cat /etc/gfwlist/unblock-youku | wc -l")
+
+ubcronup = s:taboption("basic", Flag, "ubcron_mode", translate("Auto Update unblock-youku-List"),
+	translate(string.format("unblock-youku-List Lines： <strong><font color=\"blue\">%s</font></strong> Lines", UBND)))
+cronup.default = 0
+cronup.rmempty = false
+
+ubupdatead = s:taboption("basic", Button, "updatead", translate("Manually force update unblock-youku-List"), translate("Note: It needs to download and convert the rules. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
+ubupdatead.inputtitle = translate("Manually force update unblock-youku-List")
+ubupdatead.inputstyle = "apply"
+ubupdatead.write = function()
+	SYS.call("nohup sh /etc/v2ray/up-unblock-youku.sh > /tmp/ubupdate.log 2>&1 &")
+end
+
+
 local ubconf = "/etc/v2ray/base-ublist.txt"
 
 s:tab("mylist",  translate("User-defined Unblock-youku-List"))
@@ -343,6 +359,8 @@ end
 
 --Rui added end
 ---------------------------------------------------
+
+
 
 s:tab("status",  translate("Status and Tools"))
 s:taboption("status", DummyValue,"opennewwindow" , 
