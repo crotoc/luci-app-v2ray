@@ -74,7 +74,11 @@ SDK可以用于制作openwrt可以使用的ipk包，每种路由器根据不同�
 ## 参考链接
 
 https://github.com/openwrt/luci/wiki/CBI
+
 https://github.com/seamustuohy/luci_tutorials/blob/master/04-model-cbi.md
+
 https://github.com/coolsnowwolf/lede/tree/master/package
+
 http://dvblog.soabit.com/building-custom-openwrt-packages-an-hopefully-complete-guide/
+
 https://oldwiki.archive.openwrt.org/doc/howto/obtain.firmware.sdk
