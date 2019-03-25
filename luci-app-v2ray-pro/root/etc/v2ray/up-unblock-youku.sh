@@ -5,7 +5,7 @@ wget-ssl --no-check-certificate https://raw.githubusercontent.com/crotoc/unblock
 cat /tmp/ol-unblock-youku.b64 | base64 -d > /tmp/ol-unblock-youku.txt
 
 if [ -s "/tmp/ol-unblock-youku.txt" ];then
-	sort -u /etc/v2ray/base-ublist.txt  /tmp/ol-unblock-youku.txt | uniq > /tmp/unblock-youku
+	sort -u /etc/v2ray/base-ublist.txt  /tmp/ol-unblock-youku.txt | grep -v "#" |uniq > /tmp/unblock-youku
 	if ( ! cmp -s /tmp/unblock-youku /etc/gfwlist/unblock-youku );then
 		if [ -s "/tmp/unblock-youku" ];then
 			mv /tmp/unblock-youku /etc/gfwlist/unblock-youku
