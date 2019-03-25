@@ -414,7 +414,7 @@ e:value("disable",translate("No Proxy"))
 e:value("global",translate("Global Proxy"))
 e:value("game",translate("Game Mode"))
 
-x=m:section(TypedSection,"restart",translate("<strong>Restart service</strong>"),
+x=m:section(TypedSection,"restart",translate("<strong>Restart service</strong>"))
 btn = x:option(Button, "_btn", translate("Click this to restart v2ray"))
 function btn.write()
     luci.sys.call("/etc/init.d/v2raypro restart > /tmp/v2ray.log")
