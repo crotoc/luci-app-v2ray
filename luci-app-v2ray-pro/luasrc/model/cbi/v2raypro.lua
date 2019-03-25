@@ -341,7 +341,6 @@ end
 ublist.write = function(self, section, value)
    NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
    SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
-   SYS.call("/etc/init.d/v2raypro restart > /tmp/v2ray.log ")
 end
 
 local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
@@ -414,11 +413,23 @@ e:value("disable",translate("No Proxy"))
 e:value("global",translate("Global Proxy"))
 e:value("game",translate("Game Mode"))
 
-x=m:section(TypedSection,"restart",translate("<strong>Restart service</strong>"))
-btn = x:option(Button, "_btn", translate("Click this to restart v2ray"))
-function btn.write()
+
+r=m:section(TypedSection,"v2raypro",translate("<strong>Service control</strong>"))
+restartbtn = r:option(Button, "_restartbtn", translate("Click this to restart v2ray"),translate("Restart service"))
+function restartbtn.write()
     luci.sys.call("/etc/init.d/v2raypro restart > /tmp/v2ray.log")
 end
+
+startbtn = r:option(Button, "_startbtn", translate("Click this to start v2ray"),translate("start service"))
+function startbtn.write()
+    luci.sys.call("/etc/init.d/v2raypro start > /tmp/v2ray.log")
+end
+
+stopbtn = r:option(Button, "_stopbtn", translate("Click this to stop v2ray"),translate("stop service"))
+function stopbtn.write()
+    luci.sys.call("/etc/init.d/v2raypro stop > /tmp/v2ray.log")
+end
+
 
 
 return m
