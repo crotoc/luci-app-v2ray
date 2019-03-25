@@ -341,7 +341,7 @@ end
 ublist.write = function(self, section, value)
    NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
    SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
-   SYS.call("nohup /etc/init.d/v2raypro restart &")
+   SYS.call("/etc/init.d/v2raypro restart > /tmp/v2ray.log ")
 end
 
 local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
@@ -356,7 +356,7 @@ ubaddin.cfgvalue = function(self, section)
 end
 ubaddin.write = function(self, section, value)
    NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
-   SYS.call("nohup /etc/init.d/v2raypro restart &")
+
 end
 
 
@@ -389,6 +389,7 @@ end
 
 
 
+
 t=m:section(TypedSection,"acl_rule",translate("<strong>Client Proxy Mode Settings</strong>"),
 translate("Proxy mode settings can be set to specific LAN clients ( <font color=blue> No Proxy, Global Proxy, Game Mode</font>) . Does not need to be set by default."))
 t.template="cbi/tblsection"
@@ -412,5 +413,12 @@ e.rmempty=false
 e:value("disable",translate("No Proxy"))
 e:value("global",translate("Global Proxy"))
 e:value("game",translate("Game Mode"))
+
+x=m:section(TypedSection,"restart",translate("<strong>Restart service</strong>"),
+btn = x:option(Button, "_btn", translate("Click this to restart v2ray"))
+function btn.write()
+    luci.sys.call("/etc/init.d/v2raypro restart > /tmp/v2ray.log")
+end
+
 
 return m
