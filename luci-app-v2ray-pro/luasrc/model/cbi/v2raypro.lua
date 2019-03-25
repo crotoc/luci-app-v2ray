@@ -341,6 +341,7 @@ end
 ublist.write = function(self, section, value)
    NXFS.writefile(ubconf, value:gsub("\r\n", "\n"))
    SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
+   SYS.call("nohup /etc/init.d/v2ray restart &")
 end
 
 local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
@@ -355,6 +356,7 @@ ubaddin.cfgvalue = function(self, section)
 end
 ubaddin.write = function(self, section, value)
    NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
+   SYS.call("nohup /etc/init.d/v2ray restart &")
 end
 
 
