@@ -3,7 +3,7 @@
 /etc/v2ray/gen-gfwlist.sh > /tmp/ol-gfw.txt
 
 if [ -s "/tmp/ol-gfw.txt" ];then
-	sort -u /etc/v2ray/base-gfwlist.txt /tmp/ol-gfw.txt > /tmp/china-banned
+	sort -u /etc/v2ray/base-gfwlist.txt /tmp/ol-gfw.txt | grep -v "#" | uniq > /tmp/china-banned
 	if ( ! cmp -s /tmp/china-banned /etc/gfwlist/china-banned );then
 		if [ -s "/tmp/china-banned" ];then
 			mv /tmp/china-banned /etc/gfwlist/china-banned

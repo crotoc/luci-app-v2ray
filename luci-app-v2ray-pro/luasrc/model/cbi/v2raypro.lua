@@ -286,7 +286,7 @@ rmux.rmempty = false
 --------------------------------------------------
 s:tab("list",  translate("User-defined GFW-List"))
 gfwlist = s:taboption("list", TextValue, "conf")
-gfwlist.description = translate("<br />（!）Note: When the domain name is entered and will automatically merge with the online GFW-List. Please manually update the GFW-List list after applying.")
+gfwlist.description = translate("<br />（!）Note: When the domain name is entered and will automatically merge with the online GFW-List. Please manually update the GFW-List list after applying. Use # to ignore a line")
 gfwlist.rows = 13
 gfwlist.wrap = "off"
 gfwlist.cfgvalue = function(self, section)
@@ -332,7 +332,7 @@ local ubconf = "/etc/v2ray/base-ublist.txt"
 
 s:tab("mylist",  translate("User-defined Unblock-youku-List"))
 ublist = s:taboption("mylist", TextValue, "ubconf")
-ublist.description = translate("<br />（!）Note: The domain name or ip should be entered. Notice that v2ray will only use this list. If you want to merge it with the online unblock youku list. Please manually update the Unblock-youku-List list at \"Base Setting\" tab after applying.")
+ublist.description = translate("<br />（!）Note: The domain name or ip should be entered. Notice that v2ray will only use this list. If you want to merge it with the online unblock youku list. Please manually update the Unblock-youku-List list at \"Base Setting\" tab after applying. Use # to ignore a line")
 ublist.rows = 13
 ublist.wrap = "off"
 ublist.cfgvalue = function(self, section)
