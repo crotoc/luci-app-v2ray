@@ -343,19 +343,19 @@ ublist.write = function(self, section, value)
    SYS.call("nohup cp /etc/v2ray/base-ublist.txt /etc/gfwlist/unblock-youku &")
 end
 
--- local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
+local ubaddipconf = "/etc/v2ray/ubaddinip.txt"
 
--- s:tab("ubaddip",  translate("Unblock-youku-List Add-in IP"))
--- ubaddin = s:taboption("ubaddip", TextValue, "ubaddipconf")
--- ubaddin.description = translate("<br />（!）Note: IP add-in to Unblock-youku-List. Such as Telegram Messenger")
--- ubaddin.rows = 13
--- ubaddin.wrap = "off"
--- ubaddin.cfgvalue = function(self, section)
--- 	return NXFS.readfile(ubaddipconf) or ""
--- end
--- ubaddin.write = function(self, section, value)
---    NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
--- end
+s:tab("ubaddip",  translate("Unblock-youku-List Add-in IP"))
+ubaddin = s:taboption("ubaddip", TextValue, "ubaddipconf")
+ubaddin.description = translate("<br />（!）Note: IP add-in to Unblock-youku-List. IP must be added using ipset add command but not dnsmasq conf file.Such as Telegram Messenger")
+ubaddin.rows = 13
+ubaddin.wrap = "off"
+ubaddin.cfgvalue = function(self, section)
+	return NXFS.readfile(ubaddipconf) or ""
+end
+ubaddin.write = function(self, section, value)
+   NXFS.writefile(ubaddipconf, value:gsub("\r\n", "\n"))
+end
 
 
 --Rui added end

@@ -351,6 +351,10 @@ add_rule()
 		V)
 			vt_np_ipset=""
 			ipset -! create $vt_gfwlist hash:ip maxelem 65536 2>/dev/null
+			awk '!/^$/&&!/^#/{printf("add vt_gfwlist %s'" "'\n",$0)}' /etc/v2ray/ubaddinip.txt > /tmp/ubaddinip.ipset
+			sed -i "s/vt_gfwlist/$vt_gfwlist/g" /tmp/ubaddinip.ipset
+			ipset -! restore < /tmp/ubaddinip.ipset
+
 			iptables -t nat -A v2ray_pre -m set ! --match-set $vt_gfwlist dst -j RETURN
 			;;
 	esac
