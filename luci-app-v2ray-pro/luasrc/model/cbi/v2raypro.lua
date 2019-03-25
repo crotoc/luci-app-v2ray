@@ -3,7 +3,7 @@ local fs = require "nixio.fs"
 local NXFS = require "nixio.fs"
 local WLFS = require "nixio.fs"
 local SYS  = require "luci.sys"
-local ND = SYS.exec("cat /etc/gfwlist/china-banned | wc -l")
+local ND = SYS.exec("cat /etc/gfwlist/china-banned | grep -v \"#\" |  sed -n '/./p' |wc -l")
 local conf = "/etc/v2ray/base-gfwlist.txt"
 local watch = "/tmp/v2ray_watchdog.log"
 local dog = "/tmp/v2raypro.log"
@@ -313,7 +313,7 @@ end
 ---------------------------------------------------
 --Rui added
 
-local UBND = SYS.exec("cat /etc/gfwlist/unblock-youku | sed -n '/./p' | wc -l")
+local UBND = SYS.exec("cat /etc/gfwlist/unblock-youku |grep -v \"#\" | sed -n '/./p' | wc -l")
 
 ubcronup = s:taboption("basic", Flag, "ubcron_mode", translate("Auto Update unblock-youku-List"),
 	translate(string.format("unblock-youku-List Lines： <strong><font color=\"blue\">%s</font></strong> Lines", UBND)))
