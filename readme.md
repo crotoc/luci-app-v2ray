@@ -1,3 +1,5 @@
+coolsnowwolf/lede项目将这个包删除了，可能的原因是luci-ssr-plus中已经加入了添加v2ray服务器的功能，但是我还没有测试。这里的这个项目应该还是可用的。
+
 # 如何在openwrt 18.06.1中安装v2ray服务器和luci-v2ray
 
 这个项目是基于coolsnowwolf/lede项目，从中间提取了相关依赖包。针对海外党做了如下的改动：
