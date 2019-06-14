@@ -362,7 +362,11 @@ add_rule()
 	for subnet in $covered_subnets; do
 		iptables -t nat -A v2ray_pre -s $subnet -p tcp -j REDIRECT --to $V2RAY_REDIR_PORT
 	done
-	iptables -t nat -I PREROUTING -p tcp -j v2ray_pre
+
+	## Avoid repeatly adding this to PREROUTING and ruin the network connection
+	if ! iptables -t nat -C PREROUTING -p tcp -j v2ray_pre 2>/dev/null;then
+	    iptables -t nat -I PREROUTING -p tcp -j v2ray_pre
+	fi
 }
 
 del_rule()
