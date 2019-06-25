@@ -62,7 +62,8 @@ do
 		curl_code=$?
 	fi
 	if [ $curl_code -eq 0 ];then
-		ssr_url=($(echo $subscribe_data | base64 -d | sed 's/\r//g')) # 解码数据并删除 \r 换行符
+	    #ssr_url=($(echo $subscribe_data | base64 -d | sed 's/\r//g')) # 解码数据并删除 \r 换行符
+	    ssr_url=($(urlsafe_b64decode $subscribe_data | sed 's/\r//g')) # 解码数据并删除 \r 换行符
 		subscribe_max=$(echo ${ssr_url[0]} | grep -i MAX= | awk -F = '{print $2}')
 		subscribe_max_x=()
 			if [ -n "$subscribe_max" ]; then
