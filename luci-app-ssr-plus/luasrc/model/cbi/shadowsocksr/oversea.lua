@@ -14,7 +14,7 @@ function f.handle(self, state, data)
 	if state == FORM_VALID then
 		if data.conf then
 			fs.writefile(conffile, data.conf:gsub("\r\n", "\n"))
-			luci.sys.call("/usr/share/shadowsocksr/oversea2ipset.sh && /etc/init.d/dnsmasq restart")
+			luci.sys.call("bash /usr/share/shadowsocksr/oversea2ipset.sh >> /tmp/ssrpro.log 2>>/tmp/ssrerr.log  && /etc/init.d/dnsmasq restart")
 		end
 	end
 	return true
