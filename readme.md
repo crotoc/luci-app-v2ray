@@ -1,6 +1,6 @@
-coolsnowwolf/lede项目将这个包删除了，可能的原因是luci-ssr-plus中已经加入了添加v2ray服务器的功能，但是我还没有测试。这里的这个项目应该还是可用的。
+coolsnowwolf/lede项目将这个包删除了，原因大家可以猜一猜.由于我的服务器失联了,所以我换了个$$r服务,所以将所需的相关的包也放入这个里面.
 
-# 如何在openwrt 18.06.1中安装v2ray服务器和luci-v2ray
+# 如何在openwrt 18.06.1中安装v2ray服务器和luci
 
 这个项目是基于coolsnowwolf/lede项目，从中间提取了相关依赖包。针对海外党做了如下的改动：
 
@@ -84,3 +84,14 @@ https://github.com/coolsnowwolf/lede/tree/master/package
 http://dvblog.soabit.com/building-custom-openwrt-packages-an-hopefully-complete-guide/
 
 https://oldwiki.archive.openwrt.org/doc/howto/obtain.firmware.sdk
+
+
+# 安装luci-$$r
+
+相对于lean原始的包,我做了些调整:
+1. luci界面加入了一个oversea list用于自定义自己所需的unblock网站.可以将ip与address加到同一个list,里面有个脚本会自动处理添加到ipset和dnsmaq的conf中.
+2. 我的订阅字符不是4的整数倍,原始的包没办法处理.我改动了其中一行代码,使用了他自带的函数,解决的padding的问题.
+3. 将内置unblock列表中的dns解析从5353换成了53,因为默认的dns端口就是53.
+4. 原始包中的luci controller文件是二进制,我找了个源文件替换进去了.我也想用二进制,但是我不会...
+5. 最新的commit删除所有的包,有需要的朋友请checkout头一个版本再使用.
+
